@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample Bill</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1, shrink-to-fit=no">
+
+      <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  </head>
+
+  <body>
+    {% if sample_bill %}
+    <div class='text-center bg-dark text-white'>
+      <h1>Estimate</h1>
+    </div>
+
+    <div class='text-center'>
+    <table class='table'>
+      <tr>
+        <th>Name</td>
+        <td>
+          <b>
+            {{ customer.first_name }} 
+            {{ customer.last_name }}
+            {{ customer.location }}
+          </b>
+        </td>
+      </tr>
+      <tr>
+        <th>Date</td>
+        <td>{{ entry_date.entry_date }}</td>
+      </tr>
+    </table>
+    </div>
+
+      <table class='table table-bordered'>
+        <tr class='bg-dark text-white'>
+          <th>Icecream</th>
+          <th>Order Box</th>
+          <th>Box Price</th>
+          <th>Rate</th>
+        </tr>
+
+        {% for each in sample_bill reversed %}
+          <tr>
+            <th>{{ each.total.icecream }}
+              <small class='text-danger'>
+                {{ each.total.icecream.category}}
+              </small>
+            </th>
+            <th>{{ each.order_boxes }} <small>boxes</small></th>
+            <th>{{ each.total.icecream.per_box_price}} <small>rs</small></th>
+            <th>{{ each.each_icecream_sale }} <small>rs</small></th>
+          </tr>
+        {% endfor %}
+
+        <tr style='border:1px solid black'>
+          <th>Total</th>
+          <th>{{ order_boxes_sum }} 
+            <small>boxes</small></th>
+          <th colspan='2'>
+            <small><b>
+                Amt - Rs {{ total_customer_sale }}
+                <br>
+                After Discount <br>- Rs {{ discount_amount }}
+              </b></small>
+          </th>
+        </tr>
+
+        <tr>
+          <td colspan='4' style='text-align:center'>
+            <a href="{% url 'supply_app:choose_customer' customer.id %}"
+               class='btn btn-lg btn-danger text-light'>
+              Back
+            </a>
+          </td>
+         </tr>
+
+      </table>
+
+    {% else %}
+      <div class='container text-center'>
+        <br><br><br>
+          <h1 class='text-danger'>No Bill Found</h1>
+        <br><br><br>
+      </div>
+    {% endif %}
+  </body>
+
+</html>

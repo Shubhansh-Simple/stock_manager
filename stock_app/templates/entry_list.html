@@ -1,0 +1,48 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+  Entries Lists
+{% endblock title %}
+
+
+{% block additional %}
+
+  <h1 class='divBg text-info bg-dark'>New Stock Entries </h1>
+  <br>
+  <div class='container table-responsive'>
+    <table class='table table-striped'>
+
+      {% if entry_list %}
+
+        {% for entries in entry_list reversed %}
+        
+          <tr>
+            <th>
+              <a href="{% url 'stock_list' entries.id %}#mainDiv" 
+                 class='text-primary'>
+                {{ entries.entry_date }}
+              </a>
+            </th>
+            <td>{{ entries.entry_date|date:'D' }}</td>
+          </tr>
+        {% endfor %}
+
+      {% else %}
+        <div class='container text-center'>
+          <br><br><br>
+            <h1 class='text-danger'>No Entries Found</h1>
+          <br><br><br>
+        </div>
+      {% endif %}
+          <tr class='bg-white'>
+            <td colspan='4'>
+              <a href="{% url 'stock_create' %}#mainDiv"
+                 class='btn btn-primary text-light'>Add Stock
+              </a>
+            </td>
+          </tr>
+    </table>
+  </div> 
+
+{% endblock additional %}
+

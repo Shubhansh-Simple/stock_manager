@@ -1,0 +1,62 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+  Supply Form 
+{% endblock title %}
+
+{% block body_head %}
+  <div class='divBg text-danger bg-dark'>
+    <h3>Supply Stock to</h3>
+    <h6><b>
+       ( {{ customer.first_name }} {{ customer.last_name }} )
+    </b></h6>
+  </div>
+
+  {% if messages %}
+    <div class="container text-center messages">
+        {% for message in messages %}
+            <h6>
+              <span  {% if message.tags %} 
+                class="badge badge-pill badge-{{ message.tags }} text-white" 
+                {% endif %}> 
+                {{ message }}
+              </span>
+            </h6>
+        {% endfor %}
+    </div>
+  {% else %}
+  <div class='container'>
+  <p class='divBg bg-success'>
+    <span class='badge text-white'><b>Successfully Supplied</b></span>
+  </p></div>
+  {% endif %}
+
+  <div class='table-responsive'>
+    <table class='table table-dark table-striped'>
+
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        
+        <tr>
+          <td colspan='2'>
+            <a href="{% url 'supply_app:choose_customer_record' %}#mainDiv"
+               class='btn btn-danger text-light'>
+                Back To List
+            </a>
+            <button class="btn btn-dark ml-2 text-danger" type="submit">
+              <b>
+                &nbsp;&nbsp;Supply&nbsp;&nbsp;
+              </b>
+            </button>
+          </td>
+        </tr>
+
+      </form>
+
+    </table>
+  </div> 
+
+{% endblock body_head %}
+
+

@@ -1,0 +1,51 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+  Customers Lists
+{% endblock title %}
+
+{% block body_head %}
+  <h3 class='divBg text-light bg-primary'>Choose Customer For Records</h3>
+  <br>
+  <div class='container-fluid table-responsive'>
+    <table class='table'>
+
+  {% if customer_list %}
+      {% for customer in customer_list %}
+        <tr>
+          <td>
+            <a href="{% url 'supply_app:choose_customer' customer.id %}#mainDiv"  
+               class="btn btn-block btn-primary">
+              {{ customer.first_name }} 
+              {{ customer.last_name }}
+              <br>
+              <b> {{ customer.location }} </b>
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+
+  {% else %}
+    <div class='container text-center'>
+      <br><br><br>
+        <h1 class='text-danger'>No Customer Found!</h1>
+      <br><br><br>
+     </div>
+  {% endif %}
+
+    <!--
+          <tr>
+            <td colspan='4'>
+              <a href="{ url 'customer_create' %}"
+                 class='btn btn-primary text-light'>
+                Add Customer
+              </a>
+            </td>
+          </tr> -->
+    </table>
+  </div> 
+
+{% endblock body_head %}
+
+
+

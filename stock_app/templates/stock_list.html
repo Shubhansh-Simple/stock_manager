@@ -1,0 +1,104 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+  Stock Lists
+{% endblock title %}
+
+{% block additional %}
+
+  <h2 class='divBg text-white bg-primary'>
+    Stocks of <b>{{ entry_date }}</b>
+  </h2>
+  <br>
+
+  <div class='table-responsive'>
+    <table class='table table-striped table-bordered text-white table-dark'>
+
+      {% if stock_list %}
+
+         <tr class='text-dark bg-warning'>
+           <th style='padding-left:50px;
+                      padding-right:50px;
+                      vertical-align:middle'>
+             Icecreams
+           </th>
+         <th>Old Balance</th>
+           <th>Arrival Stock</th>
+           <th>Total Stock</th>
+           <th>Balance Stock</th>
+           <th>Sold Stock</th>
+           <th>Sale</th>
+         </tr>
+
+
+        {% for stock in stock_list reversed %}
+
+            <td>
+
+              <!--Update Link only available on today's date -->
+              {% if is_today_date %}
+                <small>
+                  <a href="{% url 'stock_update' stock.id %}"
+                     class='text-white'>
+                    <b>{{ stock.total.icecream.flavour_name }} -
+                    {{ stock.total.icecream.category }}</b>
+                  </a>
+                </small>
+              {% else %}
+                <small><b>
+                  {{ stock.total.icecream.flavour_name }} -
+                  {{ stock.total.icecream.category }}
+                </b></small>
+              {% endif %}
+               <br>
+               <small class='text-warning'>
+                 ( <b>{{ stock.total.icecream.per_box_pieces }}Nos x 
+                   {{ stock.total.icecream.per_piece_price }}rs )</b>
+               </small>
+            </td> <!--First Column Ends-->
+
+            <td>{{ stock.current_boxes }}</td>
+            <td>{{ stock.arrival_boxes }}</td>
+            <td>{{ stock.all_boxes }}</td>
+            <td>{{ stock.remain_boxes }}</td>
+            <td class='text-warning'>{{ stock.sold_boxes }}</td>
+            <td>{{ stock.todays_sale }} rs</td>
+          </tr>
+        {% endfor %}
+
+      {% else %}
+        <div class='container text-center'>
+          <br><br><br>
+            <h1 class='text-danger'>No Stock Found</h1>
+          <br><br><br>
+        </div>
+      {% endif %}
+
+    </table>
+  </div> 
+  <br>
+  <div class='divBg text-center'>
+    <h3 class='bg-dark text-white'>
+      <i>Total Sale - Rs {{ today_total_sale}}</i>
+    </h3>
+  </div>
+  <br>
+  <div class='text-center'>
+
+    <!--Back To Stock Entries-->
+    <a href="{% url 'entry_list' %}" 
+       class='btn btn-primary text-light'>
+         &nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;
+    </a>
+
+    <!--Add Stock Button-->
+    <a href="{% url 'stock_create' %}#mainDiv"
+       class='btn btn-success text-light'> Add Stock
+    </a>
+  </div>
+
+
+{% endblock additional %}
+
+
+

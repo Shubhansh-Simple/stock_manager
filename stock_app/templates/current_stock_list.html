@@ -1,0 +1,108 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+  Current Stock Lists
+{% endblock title %}
+
+{% block additional_style %}
+  td { 
+		border-bottom: 2px solid black; 
+  }
+{% endblock additional_style %}
+
+{% block body_head %}
+
+  <h2 class='divBg text-success bg-dark'>Current Stock List</h2>
+  <!--MESSAGES-->
+  {% if messages %}
+    <div class=" text-center messages">
+        {% for message in messages %}
+            <h4>
+              <span  {% if message.tags %} 
+                class="badge badge-pill badge-{{ message.tags }} text-white" 
+                {% endif %}> 
+                {{ message }}
+              </span>
+            </h4>
+        {% endfor %}
+    </div>
+    <br>
+  {% else %}
+  <small>No messsage found</small>
+  {% endif %}
+
+
+  <div class='table-responsive'>
+    <table class='table table-striped table-dark'>
+
+      {% if current_stock_list %}
+
+        <tr class='bg-success text-white'>
+          <th style='padding-left:50px;
+                     padding-right:50px;
+                     vertical-align:middle'>
+             Icecreams
+           </th>
+          <th>Current Quantity</th>
+          <th>Total Price</th>
+        </tr>
+
+        {% for current_stock in current_stock_list reversed %}
+          <tr>
+            <td>
+              <small>
+                <b>
+                  {{ current_stock.icecream.flavour_name }} -
+                  <b class='text-danger'>
+                    {{ current_stock.icecream.category }}
+                  </b>
+                </b>
+              </small>
+              <br>
+              <small class='text-success'>
+                ( {{ current_stock.icecream.per_box_pieces }}Nos x 
+                  {{ current_stock.icecream.per_piece_price }}rs )
+              </small>
+
+            </td>
+            <td>
+              <b>{{ current_stock.total_boxes }}</b>
+              <small class='text-warning'>(boxes)</small>
+            </td>
+            <td>
+              <b>{{ current_stock.current_boxes_price }}</b>
+              <small class='text-danger'>Rs</small>
+            </td>
+
+          </tr>
+        {% endfor %}
+        <tr class='bg-dark'>
+          <th colspan='3'>
+            Current Stock Price - Rs {{ total_stock_price }}
+          </th>
+        </tr>
+
+      {% else %}
+        <div class='container text-center'>
+          <br><br><br>
+            <h1 class='text-danger'>No Current Stock Left</h1>
+          <br><br><br>
+        </div>
+      {% endif %}
+
+    </table>
+  </div> 
+ 
+  <div class='text-center'>
+    <br>
+
+    <a href="{% url 'stock_create' %}#mainDiv"
+       class='btn btn-primary text-light'>Add Stock
+    </a>
+    <br>
+    <br>
+  </div>
+
+{% endblock body_head %}
+
+

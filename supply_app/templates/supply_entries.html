@@ -1,0 +1,55 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+  Supply Dates 
+{% endblock title %}
+
+
+{% block body_head %}
+
+  <h1 class='divBg text-white bg-dark'>Supply Dates</h1>
+  <br>
+  <div class='container table-responsive'>
+    <table class='table table-striped'>
+
+      {% if supply_list %}
+
+        <tr class='bg-warning text-dark'>
+          <th>Date</th>
+          <th>Day</th>
+        </tr>
+
+        {% for supply in supply_list reversed %}
+          <tr>
+            <th>
+              <a href="#" 
+                 class='text-primary'>
+                {{ supply.entry_date }}
+              </a>
+            </th>
+            <td>Monday</td>
+          </tr>
+        {% endfor %}
+
+      {% else %}
+        <div class='container text-center'>
+          <br><br><br>
+            <h1 class='text-danger'>No Supply Entries Found</h1>
+          <br><br><br>
+        </div>
+      {% endif %}
+    </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class='text-center'>
+      <a class='btn btn-danger text-light'
+         href="{% url 'supply_app:choose_customer_record' %}#mainDiv">
+        Supply Stock
+      </a>
+    </div> 
+
+{% endblock body_head %}
+
+

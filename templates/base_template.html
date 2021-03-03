@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      {% load static %}
+      
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=1, shrink-to-fit=no">
+
+      <!--<link rel="stylesheet" href="{ static 'base_cascade.css' }">-->
+
+      <!--Bootstrap-->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title> 
+      {% block title %}
+        Welcome
+      {% endblock %}
+    </title>
+
+    <style>
+
+    {% block additional_style %}
+    {% endblock additional_style %}
+
+    .divBg{
+      border-radius:15px 50px;
+    }
+
+    h1,h2,h3{
+      font-family: 'serif';
+    }
+
+     .btn {
+       text-align: center;
+       cursor: pointer;
+       outline: none;
+       border: none;
+       border-radius: 5px;
+       box-shadow: 0 5px #999;
+    }
+
+     .btn:active {
+       box-shadow: 0 5px #666;
+       transform: translateY(4px);
+     }
+
+    </style>
+  
+  </head>
+
+  <body>
+     
+    <!-- .btn:hover {background-color: #3e8e41}-->
+    <!--HEADER OF SITE-->
+    <header>
+      <div class="bg-dark collapse" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About Me</h4>
+              <p class="text-muted">Hi this is Shubhanshu, I am a Computer Programmer for any type of software requirement contact me.
+              <br><small class='text-white'>Contact Me +91 </small></p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+                <a href="{% url 'customer_list' %}#mainDiv" 
+                       class="text-white">
+                  <h5>Customers Records >></h5>
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid d-flex justify-content-between">
+          <strong>
+            <a class="navbar-brand d-flex align-items-center" 
+               href="{% url 'entry_list' %}">
+              Home 
+            </a>
+          </strong>
+          
+          <div class="col-4 d-flex justify-content-end align-items-center">
+			{% if user.is_authenticated %}
+            <a class="btn btn-outline-warning align-items-center" href="">
+                Logout
+              </a> &nbsp;
+            {% else %}
+		      <a class="btn btn-outline-light align-items-center" href="">
+                Login
+              </a> &nbsp;
+			{% endif %}
+
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </header>
+ 
+    <!--MAIN OF SITE-->
+    <main role='main'>
+      <section class="jumbotron text-center bg-light">
+          <div class="container-fluid">
+            <div class='text-white bg-dark' 
+                 style='border-radius:15px 50px'>
+              <h2>
+                <b class='text-warning'>Star Enterprises</b>
+              </h2>
+              <h4 class='text-success'>
+                <b>Product - Icecream</b>
+              </h4>
+            </div>
+            <br>
+            
+            <p class='bg-dark'
+               style='border-radius:75px 11px'>
+              <a href="{% url 'entry_list' %}#mainDiv" 
+                 class="btn btn-primary my-2">
+                Daily Report 
+              </a>
+              <a href="{% url 'current_stock' %}#mainDiv" 
+                 class="btn btn-warning my-2">
+                Current Stock
+              </a>
+              <a href="{% url 'supply_app:choose_customer_record' %}#mainDiv" 
+                 class="btn btn-danger my-2">
+                Supply Stock
+              </a>
+            </p>
+            <p>
+              {% if user.is_authenticated %}
+                <small class="text text-dark">
+                  Welcome <b>{{ user.username|title }}</b>
+                </small>
+              {% else %}
+                <small class="text text-dark">Welcome</small>
+              {% endif %}
+            </p>
+          </div>
+      </section>
+      
+    </main>
+   
+    <div class="text-center" id='mainDiv'>
+      {% block additional %}
+      {% endblock additional %}
+
+      <div class='container-fluid text-center'>
+        {% block body_head %}
+        {% endblock body_head %}
+      </div>
+    </div>
+  
+    <br>
+    <footer class="text-muted">
+      <div class="container bg-dark">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>New to Website? Contact with Programmer (About Section).</p>
+      </div>
+    </footer>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  </body>
+</html>
+
+
