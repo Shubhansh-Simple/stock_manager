@@ -9,7 +9,7 @@
 
   <h3 class='divBg text-light bg-danger'>Choose Customer To Supply </h3>
   <br>
-  <div class='container-fluid table-responsive'>
+  <div class='container table-responsive'>
     <table class='table'>
 
   {% if choose_customer %}
@@ -17,11 +17,14 @@
       <tr>
           <td>
           <a href="{% url 'supply_app:supply_create' customer.id %}#mainDiv"  
-              class="btn btn-block btn-danger">
-              {{ customer.first_name }} 
-              {{ customer.last_name }}
+              class="btn btn-dark btn-block btn-outline-white">
+              <b>
+                {{ customer.first_name }} 
+                {{ customer.last_name }}
+              </b>
               <br>
-              <b> {{ customer.location }} </b>
+              <i> {{ customer.location }} </i> 
+              <b>>>></b>
             </a>
           </td>
         </tr>

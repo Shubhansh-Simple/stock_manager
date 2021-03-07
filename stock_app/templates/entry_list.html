@@ -34,15 +34,45 @@
           <br><br><br>
         </div>
       {% endif %}
+      <tr><td colspan='2'></td></tr>
           <tr class='bg-white'>
             <td colspan='4'>
               <a href="{% url 'stock_create' %}#mainDiv"
-                 class='btn btn-primary text-light'>Add Stock
+                 class='btn btn-primary btn-block text-light'>Add Stock
               </a>
             </td>
           </tr>
     </table>
   </div> 
 
+  <!--Paginator of dates entries-->
+  <div class="pagination table-responsive">
+    <table class='table'>
+      <tr>
+        <td>
+          {% if page_obj.has_previous %}
+          <!--<a class='btn btn-link' href="?page=1">&laquo; first</a>-->
+            <a class='btn btn-link' 
+               href="?page={{ page_obj.previous_page_number }}#mainDiv">Previous</a>
+          {% else %}
+          <a class='btn btn-link disabled' href="#">Previous</a>
+          {% endif %}
+        </td>
+
+        <th>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</th>
+
+        <td>
+          {% if page_obj.has_next %}
+            <a class='btn btn-link' 
+               href="?page={{ page_obj.next_page_number }}#mainDiv">
+              &nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;</a>
+          {% else %}
+            <a class='btn btn-link disabled' href="#">Next</a>
+          {% endif %}
+        </td>
+
+      </tr>
+    </table>
+  </div>
 {% endblock additional %}
 

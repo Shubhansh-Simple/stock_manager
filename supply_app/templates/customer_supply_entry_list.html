@@ -9,10 +9,11 @@
 
   <div class='divBg text-warning bg-dark'>
     <h2>Supply Records of </h2>
-    <small class='text-white'>
+    <small class='text-white'><i><b>
       {{ customer.first_name }} 
       {{ customer.last_name }} 
-    </small>
+      {{ customer.location }}
+    </i></b></small>
   </div>
   <br>
 
@@ -24,7 +25,6 @@
         {% for entries in customer_supply_entry reversed %}
           <tr>
             <th>
-              <!--<a href="{ url 'supply_app:customer_bill' pk=entries.entry_date.id customer_id=customer.id %}" -->
               <a href="{% url 'supply_app:customer_bill' pk=entries.id customer_id=customer.id %}" 
                  class='text-primary'>
                 {{ entries.entry_date }}
@@ -55,6 +55,36 @@
           </tr>
     </table>
   </div> 
+
+  <!--Paginator of dates entries-->
+  <div class="pagination table-responsive">
+    <table class='table'>
+      <tr>
+
+        <td>
+          {% if page_obj.has_previous %}
+          <!--<a class='btn btn-link' href="?page=1">&laquo; first</a>-->
+            <a class='btn btn-link' 
+               href="?page={{ page_obj.previous_page_number }}#mainDiv">Previous</a>
+          {% else %}
+          <a class='btn btn-link disabled' href="#">Previous</a>
+          {% endif %}
+        </td>
+
+        <th>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</th>
+
+        <td>
+          {% if page_obj.has_next %}
+            <a class='btn btn-link' 
+               href="?page={{ page_obj.next_page_number }}#mainDiv">Next</a>
+          {% else %}
+            <a class='btn btn-link disabled' href="#">Next</a>
+          {% endif %}
+        </td>
+
+      </tr>
+    </table>
+  </div>
 
 {% endblock additional %}
 

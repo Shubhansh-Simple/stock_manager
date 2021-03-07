@@ -21,6 +21,13 @@ class StockCreateForm( forms.ModelForm ):
                   }
 
 
+    def __init__( self, *args, **kwargs ):
+        '''Only show availabe ice-cream on supplying.'''
+
+        super( StockCreateForm, self).__init__(  *args, **kwargs )
+        self.fields['arrival_boxes'].initial = ''
+
+
 class StockUpdateForm( forms.ModelForm ):
 
     icecreams = forms.CharField(

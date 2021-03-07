@@ -19,14 +19,16 @@
     <div class='text-center'>
     <table class='table'>
       <tr>
-        <th>Name</td>
-        <td>
-          <b>
-            {{ customer.first_name }} 
-            {{ customer.last_name }}
-            {{ customer.location }}
-          </b>
-        </td>
+        <th>From</th>
+        <th>Start Enterprises</th>
+      </tr>
+      <tr>
+        <th>To</td>
+        <th>
+          {{ customer.first_name }} 
+          {{ customer.last_name }}
+          {{ customer.location }}
+        </th>
       </tr>
       <tr>
         <th>Date</td>
@@ -72,8 +74,12 @@
         <tr>
           <td colspan='4' style='text-align:center'>
             <a href="{% url 'supply_app:choose_customer' customer.id %}"
-               class='btn btn-lg btn-danger text-light'>
+               class='btn btn-lg btn-primary text-light'>
               Back
+            </a>
+            <a href="{% url 'supply_app:supply_create' customer.id %}#mainDiv"
+               class='btn btn-lg btn-danger text-light'>
+              Supply More
             </a>
           </td>
          </tr>
@@ -81,12 +87,17 @@
       </table>
 
     {% else %}
-      <div class='container text-center'>
+      <div class='container text-center text-danger'>
         <br><br><br>
-          <h1 class='text-danger'>No Bill Found</h1>
+          <h1> :( </h1>
+          <br>
+          <h2>No Bill Found</h2>
         <br><br><br>
+        <a href="{% url 'supply_app:supply_create' customer.id %}"
+           class='btn btn-dark btn-block'>Back To Supply</a>
       </div>
     {% endif %}
+
   </body>
 
 </html>

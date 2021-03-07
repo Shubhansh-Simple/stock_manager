@@ -1,0 +1,21 @@
+<!-- templates/registration/login.html -->
+{% extends 'base_template.html' %}
+
+{% block body_head %}
+  <h2 class='bg-dark text-white'>
+    Log In
+  </h2>
+  <br>
+  <div class='container'>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <button class='btn btn-success text-white' 
+            type="submit">
+      <b>&nbsp;&nbsp;Login&nbsp;&nbsp;</b>
+    </button>
+  </form></div>
+  <br>
+  <br>
+{% endblock body_head %}

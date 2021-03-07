@@ -1,69 +1,87 @@
-from .models              import Dates,Total,Stock
+from .models              import Dates,Total,Stock,Icecream
 from .forms               import StockCreateForm, StockUpdateForm
-from .helper              import AllAboutDate 
+from Icecream.helper      import CheckEntryInModel
 
-from supply_app.helper2   import CheckEntryInModel
-
-##from django.contrib       import messages
+from django.contrib.auth.mixins    import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http                   import HttpResponseRedirect #, HttpResponse
+from django.contrib                import messages
+from django.http                   import HttpResponseRedirect
+from django.shortcuts              import get_list_or_404
 from django.urls                   import reverse
 from django.views.generic          import ListView,\
                                           CreateView,\
                                           UpdateView
 
+class IcecreamListView( ListView ):
+    '''All icecreams in our database with their prices and pieces.'''
 
-class DateListView( ListView ):
-    #Showing Dates through Stock Model#
+    model               = Icecream
+    template_name       = 'icecream_list.html'
+    context_object_name = 'icecream_list'
 
+
+class DateListView( LoginRequiredMixin, ListView ):
+    '''Only those dates in which stock entry made.'''
+
+    paginate_by         = 30
     model               = Dates 
     template_name       = 'entry_list.html'
     context_object_name = 'entry_list'
     
     def get_queryset( self ):
-        
         return Dates.objects.filter(id__in={ 
-                                x[7] for x in Stock.objects.values_list() 
+                                     x['entry_date_id'] 
+                                     for x in Stock.objects.values()
                                    })
 
 
-class StockListView( ListView, AllAboutDate ):
+class StockListView( LoginRequiredMixin, ListView, CheckEntryInModel ):
     #Shows all stocks as per recieving dates.#
-
+    
     model               = Stock
     template_name       = 'stock_list.html'
     context_object_name = 'stock_list'
+    
+    # MAGIC OF CLASS VARIABLE
+    _stock = None
 
 
     def get_queryset( self ):
-        return Stock.objects.select_related('total')\
-                    .filter( entry_date__id=self.kwargs['pk'] )
+        '''All dates in which stock data modify by adding/removing.'''
+
+        self._stock = get_list_or_404( Stock, entry_date__id=self.kwargs['pk'] )
+        return self._stock
 
 
     def get_context_data( self,**kwargs ):
 
         context               = super( StockListView, self )\
                                      .get_context_data( **kwargs )
-
+        
+        # date of that day.
         context['entry_date'] = Dates.objects.get(
                                                    id=self.kwargs['pk']
                                                  ).entry_date
                                     
         context['is_today_date'] = self.is_today_date( context['entry_date'] )
-
+        
+        # that date total sale
         context['today_total_sale'] = sum([
-                                            x.todays_sale
-                                            for x in Stock.objects.filter( 
-                                            entry_date__id=self.kwargs['pk'] )
+                                            x.todays_sale for x in self._stock
                                          ])
         return context
 
 
-class StockCreateView( SuccessMessageMixin, CreateView, AllAboutDate, CheckEntryInModel ):
-    model         = Stock
-    template_name = 'stock_create.html'
-    form_class    = StockCreateForm
-    success_message = 'Successfully added icecream'
+class StockCreateView( LoginRequiredMixin, 
+                       SuccessMessageMixin, 
+                       CreateView,
+                       CheckEntryInModel
+                     ):
+
+    model           = Stock
+    template_name   = 'stock_create.html'
+    form_class      = StockCreateForm
+    success_message = 'Successfully Added'
 
     
     def post( self,request,*args,**kwargs ):
@@ -82,38 +100,35 @@ class StockCreateView( SuccessMessageMixin, CreateView, AllAboutDate, CheckEntry
             
             #If Stock table already exist then only modify arrival boxes
             try:
-                _stock = self.existence_of_stock( 
-                                                 int( FORM['total'] ),
-                                                 FORM['entry_date']
-                                               )
+                _stock = Stock.objects.get( 
+                                             total     = int( FORM['total'] ),
+                                             entry_date=FORM['entry_date']
+                                           )
                 _stock.arrival_boxes += int( FORM['arrival_boxes'] )
                 _stock.save()
 
                 _total.total_boxes += int( FORM['arrival_boxes'] )
                 _total.save()
+                
+                messages.add_message( request,messages.ERROR, 
+                                      'Successfully Added'  )
 
                 # since we don't want to create Stock entry of today's date
-                # by following form procedure
+                return HttpResponseRedirect( reverse('current_stock') )
 
-                return HttpResponseRedirect( 
-                                   reverse('current_stock') #,
-                                           #args=[ str( FORM['entry_date'] )]
-                                          )#)
-
-            #If Stock table don't exist then follow form procedure
             except Stock.DoesNotExist:
+                '''If Stock table don't exist then create it using form procedure'''
 
                 _total.total_boxes += int( FORM['arrival_boxes'] )
                 _total.save()
                 
-                # this create the Stock instance
                 return self.form_valid(form)
         else:
             print( form.errors )
             return self.form_invalid(form)
 
 
-class StockUpdateView( UpdateView, AllAboutDate ):
+class StockUpdateView( LoginRequiredMixin, UpdateView, CheckEntryInModel ):
     '''Can only modify arrival stock of today's date only.'''
 
     model               = Stock
@@ -153,15 +168,19 @@ class StockUpdateView( UpdateView, AllAboutDate ):
 ## Total Stock Model ##
 #######################
 
-class CurrentStockView( ListView ):
+class CurrentStockView( LoginRequiredMixin, ListView ):
     #Total Quantities present right now#
 
     model               = Total
     template_name       = 'current_stock_list.html'
     context_object_name = 'current_stock_list'
+    
+    # MAGIC OF CLASS VARIABLE 
+    _total = None
 
     def get_queryset( self ):
-        return Total.objects.filter( total_boxes__gt=0 )
+        self._total = Total.objects.filter( total_boxes__gt=0 )
+        return self._total
 
 
     def get_context_data( self,**kwargs ):
@@ -171,10 +190,9 @@ class CurrentStockView( ListView ):
                                      .get_context_data( **kwargs )
        
         # cost of all current stock 
-        context['total_stock_price'] = sum([
+        context['current_stock_total_price'] = sum([
                                             x.current_boxes_price 
-                                            for x in Total.objects.filter
-                                            ( total_boxes__gt=0 ) 
+                                            for x in self._total 
                                           ])
         return context
 

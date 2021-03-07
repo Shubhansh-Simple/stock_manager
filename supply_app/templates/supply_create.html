@@ -7,28 +7,25 @@
 {% block body_head %}
   <div class='divBg text-danger bg-dark'>
     <h3>Supply Stock to</h3>
-    <h6><b>
-       ( {{ customer.first_name }} {{ customer.last_name }} )
-    </b></h6>
+    <small class='text-white'><i><b>
+        ( {{ customer.first_name }} 
+          {{ customer.last_name }} 
+          {{ customer.location}} )
+    </b></i></small>
   </div>
 
   {% if messages %}
-    <div class="container text-center messages">
+    <br>
+    <div class="container text-center messages bg-danger">
         {% for message in messages %}
-            <h6>
-              <span  {% if message.tags %} 
-                class="badge badge-pill badge-{{ message.tags }} text-white" 
-                {% endif %}> 
-                {{ message }}
-              </span>
-            </h6>
+          <b class='text-white'> 
+             {{ message }}
+           </b>
         {% endfor %}
     </div>
+    <br>
   {% else %}
-  <div class='container'>
-  <p class='divBg bg-success'>
-    <span class='badge text-white'><b>Successfully Supplied</b></span>
-  </p></div>
+    <br>
   {% endif %}
 
   <div class='table-responsive'>
@@ -40,15 +37,16 @@
         
         <tr>
           <td colspan='2'>
-            <a href="{% url 'supply_app:choose_customer_record' %}#mainDiv"
-               class='btn btn-danger text-light'>
-                Back To List
-            </a>
-            <button class="btn btn-dark ml-2 text-danger" type="submit">
+            <button class="btn btn-dark text-danger" type="submit">
               <b>
                 &nbsp;&nbsp;Supply&nbsp;&nbsp;
               </b>
             </button>
+            &nbsp;
+            <a href="{% url 'supply_app:customer_bill' entry_date customer.id %}#mainDiv"
+               class='btn btn-dark text-secondary'>
+              Current Bill
+            </a>
           </td>
         </tr>
 

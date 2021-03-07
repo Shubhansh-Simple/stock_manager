@@ -1,14 +1,16 @@
-from django.views.generic import ListView,\
-                                 CreateView,\
-                                 UpdateView
-from django.contrib.auth  import get_user_model
-from django.http          import HttpResponseRedirect
-from django.urls          import reverse
+from django.views.generic          import ListView,\
+                                          CreateView,\
+                                          UpdateView
+from django.contrib.auth           import get_user_model
+from django.http                   import HttpResponseRedirect
+from django.urls                   import reverse
+from django.contrib.auth.mixins    import LoginRequiredMixin
+
 from .forms               import CustomerCreateForm
 from .models              import Customer
 
 
-class CustomerListView( ListView ):
+class CustomerListView( LoginRequiredMixin, ListView ):
     model               = get_user_model()
     template_name       = 'customer_list.html'
     context_object_name = 'customer_list'
@@ -17,7 +19,7 @@ class CustomerListView( ListView ):
         return get_user_model().objects.filter( password='' )
 
 
-class CustomerCreateView( CreateView ):
+class CustomerCreateView( LoginRequiredMixin, CreateView ):
     model         = get_user_model()
     template_name = 'customer_create.html'
     form_class    = CustomerCreateForm
@@ -47,7 +49,7 @@ class CustomerCreateView( CreateView ):
             return self.form_invalid(form)
 
          
-class CustomerUpdateView( UpdateView ):
+class CustomerUpdateView( LoginRequiredMixin, UpdateView ):
     model         = get_user_model()
     template_name = 'customer_create.html'
     form_class    = CustomerCreateForm

@@ -16,10 +16,13 @@
           <td>
             <a href="{% url 'supply_app:choose_customer' customer.id %}#mainDiv"  
                class="btn btn-block btn-primary">
-              {{ customer.first_name }} 
-              {{ customer.last_name }}
+              <b>
+                {{ customer.first_name }} 
+                {{ customer.last_name }}
+              </b>
               <br>
-              <b> {{ customer.location }} </b>
+              <i> {{ customer.location }} </i>
+              <b> >>> </b>
             </a>
           </td>
         </tr>

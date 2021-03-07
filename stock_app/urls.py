@@ -3,10 +3,12 @@ from .views      import DateListView,\
                         StockCreateView,\
                         StockUpdateView,\
                         CurrentStockView,\
-                        StockListView  
+                        StockListView,\
+                        IcecreamListView
 
 urlpatterns = [
     path('',                 DateListView.as_view(),  name='entry_list' ),
+    path('icecream/',         IcecreamListView.as_view(), name='icecream_list'),
     path('<int:pk>/',        StockListView.as_view(), name='stock_list' ),
     path('<int:pk>/update/', StockUpdateView.as_view(), name='stock_update' ),
 

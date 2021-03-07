@@ -128,6 +128,9 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'customer_app.Customer'
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 TIME_INPUT_FORMATS = ['%I:%M %p',]
 

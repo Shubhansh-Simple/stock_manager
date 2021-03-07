@@ -1,0 +1,43 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+  Icecream Lists
+{% endblock title %}
+
+{% block body_head %}
+
+<h1 class='divBg text-info bg-dark'>Icecreams List</h1>
+  <br>
+  <div class='container table-responsive'>
+    <table class='table table-striped'>
+
+      {% if icecream_list %}
+
+        {% for icecream in icecream_list reversed %}
+            <h3 class="card-title pricing-card-title text-danger">
+              {{ icecream.flavour_name }}
+            </h3>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Price - <b>{{ icecream.per_piece_price }} Rs</b></li>
+              <li>Per Box Pieces - <b>{{ icecream.per_box_pieces }} Rs</b></li>
+              <li>Category - <b>{{ icecream.category }}</b></li>
+            </ul>
+            <hr>
+        {% endfor %}
+
+      {% else %}
+        <div class='container text-center'>
+          <br><br><br>
+            <h1 class='text-danger'>No Icecream Found</h1>
+          <br><br><br>
+        </div>
+      {% endif %}
+
+    </table>
+  </div> 
+
+
+
+{% endblock body_head %}
+
+

@@ -15,20 +15,15 @@
   <h2 class='divBg text-success bg-dark'>Current Stock List</h2>
   <!--MESSAGES-->
   {% if messages %}
-    <div class=" text-center messages">
+    <br>
+    <div class="container text-center messages bg-success">
         {% for message in messages %}
-            <h4>
-              <span  {% if message.tags %} 
-                class="badge badge-pill badge-{{ message.tags }} text-white" 
-                {% endif %}> 
-                {{ message }}
-              </span>
-            </h4>
+          <b class="text-white">{{ message }}</b>
         {% endfor %}
     </div>
     <br>
   {% else %}
-  <small>No messsage found</small>
+    <br>
   {% endif %}
 
 
@@ -78,7 +73,7 @@
         {% endfor %}
         <tr class='bg-dark'>
           <th colspan='3'>
-            Current Stock Price - Rs {{ total_stock_price }}
+            Current Stock Price - Rs {{ current_stock_total_price }}
           </th>
         </tr>
 
