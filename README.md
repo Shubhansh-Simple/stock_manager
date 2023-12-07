@@ -38,7 +38,8 @@ without reminding dates and using papers</h4>
 <b>.)</b> Owner not only able to track every single transaction of his customers but also can track every single item of the stock by reviewing Daily Reports
 speciﬁc to dates<br>
 <b>.)</b> Remove the burdern of shop owners by tracking records from anywhere
-without reminding dates and using papers<br>
+without reminding dates and using papers <br>
+<br>
 <b>Tools and skills</b> : Python, Django, Mysql, Pythonanywhere, Bootstrap, Javascript, Mysql, Html, Css
 <br>
 <br>
