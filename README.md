@@ -12,12 +12,16 @@
   </a>
 </p>
 
+<hr>
+
 # Your transaction's Daily Report
 <p align="center">
   <a alt="Shop Inventory Website" href="https://starenterprises.pythonanywhere.com/">
     <img alt="Sample" src="https://shub.pythonanywhere.com/media/images/Daily-report-view_x9k7OnK.png" height="600" />
   </a>
 </p>
+
+<hr>
 
 # GST Bills
 <p align="center">
@@ -40,7 +44,7 @@ speciﬁc to dates<br>
 <b>.)</b> Remove the burdern of shop owners by tracking records from anywhere
 without reminding dates and using papers <br>
 <br>
-<b>.)</b><i>Tools and skills</i> : <b>Python</b>, <b>Django</b>, <b>Mysql</b>, <b>Pythonanywhere</b>, <b>Bootstrap</b>, <b>Javascript</b>, <b>Html</b>,, <b>Css</b>
+<b>.)</b><i>Tools and skills</i> : <b>Python</b>, <b>Django</b>, <b>Mysql</b>, <b>Pythonanywhere</b>, <b>Bootstrap</b>, <b>Javascript</b>, <b>Html</b>,<b>Css</b>
 <br>
 <br>
 
