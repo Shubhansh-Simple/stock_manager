@@ -8,7 +8,7 @@
 # Responsive Web Application
 <p align="center">
   <a alt="Shop Inventory Website" href="https://starenterprises.pythonanywhere.com/">
-    <img alt="Logo" src="https://shub.pythonanywhere.com/media/images/fourth_image2_gJeV1Kx.png" height="500" /> 
+    <img alt="Logo" src="https://shub.pythonanywhere.com/media/images/fourth_image2_gJeV1Kx.png" height="300" /> 
   </a>
 </p>
 
@@ -17,7 +17,7 @@
 # Your transaction's Daily Report
 <p align="center">
   <a alt="Shop Inventory Website" href="https://starenterprises.pythonanywhere.com/">
-    <img alt="Sample" src="https://shub.pythonanywhere.com/media/images/Daily-report-view_x9k7OnK.png" height="500" />
+    <img alt="Sample" src="https://shub.pythonanywhere.com/media/images/Daily-report-view_x9k7OnK.png" height="300" />
   </a>
 </p>
 
@@ -26,7 +26,7 @@
 # GST Bills
 <p align="center">
   <a alt="Shop Inventory Website" href="https://starenterprises.pythonanywhere.com/">
-    <img alt="Sample" src="https://shub.pythonanywhere.com/media/images/Customer-gst-bill-view.png" height="500" />
+    <img alt="Sample" src="https://shub.pythonanywhere.com/media/images/Customer-gst-bill-view.png" height="300" />
   </a>
 </p>
 
