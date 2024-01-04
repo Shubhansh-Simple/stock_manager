@@ -37,7 +37,7 @@ without reminding dates and using papers</h4>
 
 ---
 
-# Description
+### Description
 <b>.)</b> Built a web application to allow shop owners to retrieve GST bills of their customer speciﬁc to the dates of their supplied products. <br>
 <b>.)</b> Owner not only able to track every single transaction of his customers but also can track every single item of the stock by reviewing Daily Reports
 speciﬁc to dates<br>
@@ -46,6 +46,10 @@ without reminding dates and using papers <br>
 <br>
 <b>.)</b><i>Tools and skills</i> : <b>Python</b>, <b>Django</b>, <b>Mysql</b>, <b>Pythonanywhere</b>, <b>Bootstrap</b>, <b>Javascript</b>, <b>Html</b>,<b>Css</b>
 <br>
-<br>
 
-<br>
+### Authors
+* [Shubhansh-simple](https://github.com/Shubhansh-Simple)
+* [My Portfolio](https://shub.pythonanywhere.com/profile/)
+### License
+This project is available for use under the MIT License.
+
