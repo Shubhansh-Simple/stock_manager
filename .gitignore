@@ -7,6 +7,9 @@ media
 # Vim #
 *.swp 
 
+# Database
+*.sqlite
+
 # Python # 
 *.py[cod] 
 *$py.class 
